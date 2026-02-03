@@ -2,25 +2,28 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: "30 18 * * *"   # Runs every day at 12:00 AM IST
+    - cron: "30 18 * * *"   # Runs daily at 12:00 AM IST
   workflow_dispatch:
 
+permissions:
+  contents: write   #  THIS gives push permission
+
 jobs:
-  commit:
+  auto-commit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Make a daily change
         run: |
-          echo "Updated on $(date)" >> daily-log.txt
+          echo "Last updated on $(date)" >> daily-log.txt
 
       - name: Commit and Push
         run: |
-          git config --global user.name "Auto Commit Bot"
-          git config --global user.email "bot@github.com"
+          git config user.name "Auto Commit Bot"
+          git config user.email "bot@github.com"
           git add .
-          git commit -m "Daily auto commit"
+          git commit -m "Daily auto commit" || echo "No changes to commit"
           git push
