@@ -22,8 +22,8 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config user.name "Auto Commit Bot"
-          git config user.email "bot@github.com"
+          git config user.name "tanmaydwivedi1"
+          git config user.email "tanmaydwivedi28@gmail.com"
           git add .
           git commit -m "Daily auto commit" || echo "No changes to commit"
           git push
